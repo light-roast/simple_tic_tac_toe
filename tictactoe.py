@@ -1,3 +1,5 @@
+import random
+
 board = [
     [1,2,3],
     [4,5,6],
@@ -19,7 +21,7 @@ def display_board(board):
     print("|       |       |       |")
     print("+-------+-------+-------+")
 
-print_board(board)
+display_board(board)
 
 def enter_move(board):
     while True:
@@ -49,22 +51,41 @@ def enter_move(board):
         
         
 
-freeFields = []
+
 def make_list_of_free_fields(board):
-    #consider delete all the freeFields ant the call of the function
+    free_slots = []
     for i, row in enumerate(board):
         for j, slot in enumerate(row):
             if isinstance(slot, int):
                 freeFields.append((i, j))
+    return free_slots
 
 def victory_for(board, sign):
-    
-    # La función analiza el estatus del tablero para verificar si 
-    # el jugador que utiliza las 'O's o las 'X's ha ganado el juego.
+    if sign == "X":
+        who = "me"
+    elif sign == "O":
+        who = "you"
+    else:
+        who = None
+    cross1 = cross2 = True
+    for check in range(3):
+        if board[check][0] == sign and board[check][1] == sign and board[check][2]:
+            return who
+        if board[0][check] == sign and board[2][check] == sign and board[2][check] == sign
+        |   return who
+        if board[check][check] != sign: 
+			cross1 = False
+		if board[2 - check][2 - check] != sign: 
+			cross2 = False
+	if cross1 or cross2:
+		return who
+	return None
 
 
-#def draw_move(board):
-    # La función dibuja el movimiento de la máquina y actualiza el tablero.
+
+def draw_move(board):
+    free_slots = make_list_of_free_fields(board)
+    ran_choise = random.choice(free_slots)
 
 
 #def start_game(board):
