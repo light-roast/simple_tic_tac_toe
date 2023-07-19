@@ -57,8 +57,9 @@ def make_list_of_free_fields(board):
     for i, row in enumerate(board):
         for j, slot in enumerate(row):
             if isinstance(slot, int):
-                freeFields.append((i, j))
+                free_slots.append((i, j))
     return free_slots
+
 
 def victory_for(board, sign):
     if sign == "X":
@@ -71,15 +72,15 @@ def victory_for(board, sign):
     for check in range(3):
         if board[check][0] == sign and board[check][1] == sign and board[check][2]:
             return who
-        if board[0][check] == sign and board[2][check] == sign and board[2][check] == sign
-        |   return who
-        if board[check][check] != sign: 
-			cross1 = False
-		if board[2 - check][2 - check] != sign: 
-			cross2 = False
-	if cross1 or cross2:
-		return who
-	return None
+        if board[0][check] == sign and board[2][check] == sign and board[2][check] == sign:
+            return who
+        if board[check][check] != sign:
+            cross1 = False
+        if board[2-check][2-check] != sign: 
+            cross2 = False
+    if cross1 or cross2:
+        return who
+    return None
 
 
 
