@@ -114,11 +114,11 @@ def start_game(board):
             print("Your turn")
 
         if victory == "me":
-            print("I win!")
+            print("Nope! I win!")
             display_board(board)
             return
         elif victory == "you":
-            print("You win!")
+            print("Amm... You win!")
             display_board(board)
             return
         elif victory is None and len(make_list_of_free_fields(board)) == 0:
