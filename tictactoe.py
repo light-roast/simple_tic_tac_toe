@@ -6,6 +6,8 @@ board = [
     [7,8,9]
 ]
 
+
+
 def display_board(board):
     print("+-------+-------+-------+")
     print("|       |       |       |")
@@ -21,33 +23,35 @@ def display_board(board):
     print("|       |       |       |")
     print("+-------+-------+-------+")
 
-display_board(board)
+
 
 def enter_move(board):
-    while True:
-        try:
-            mov = int(input('Please enter your movement: '))
-            if 1 <= mov <= 9:
-                found = False
-                row_index = None
-                column_index = None
-                for i, row in enumerate(board):
-                    if mov in row:
-                        found = True
-                        row_index = i
-                        column_index = row.index(mov)
-                        break
+        while True:
+            try:
+                mov = int(input('Please enter your movement: '))
+                if 1 <= mov <= 9:
+                    found = False
+                    row_index = None
+                    column_index = None
+                    for i, row in enumerate(board):
+                        if mov in row:
+                            found = True
+                            row_index = i
+                            column_index = row.index(mov)
+                            break
 
-                if found:
-                    board[row_index][column_index] = "O"
-                    print("Successful movemente at row {row_index} and column {column_index}")
-                    return  
+                    if found:
+                        board[row_index][column_index] = "O"
+                        print(f'Successful movemente at row {row_index} and column {column_index}')
+                        return  
+                    else:
+                        print("Invalid movement. Please try again and input a valid location for your movement.")
+                        continue
                 else:
-                    print("Invalid movement. Please try again and input a valid location for your movement.")
-            else:
-                print("Movement should be a number between 1 and 9.")
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+                    print("Movement should be a number between 1 and 9.")
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+        display_board(board)
         
         
 
@@ -72,7 +76,7 @@ def victory_for(board, sign):
     for check in range(3):
         if board[check][0] == sign and board[check][1] == sign and board[check][2]:
             return who
-        if board[0][check] == sign and board[2][check] == sign and board[2][check] == sign:
+        if board[0][check] == sign and board[1][check] == sign and board[2][check] == sign:
             return who
         if board[check][check] != sign:
             cross1 = False
@@ -85,9 +89,38 @@ def victory_for(board, sign):
 
 
 def draw_move(board):
+    print("My turn")
     free_slots = make_list_of_free_fields(board)
-    ran_choise = random.choice(free_slots)
+    ran_choice = random.choice(free_slots)
+    board[ran_choice[0]][ran_choice[1]] = "X"
+    display_board(board)
+    print('Your turn')
 
 
-#def start_game(board):
-    #"hile True:w
+def start_game(board):
+    display_board(board)
+    draw_move(board)
+    victory = None
+    turn = True
+    while victory is None:
+        if turn:
+            enter_move(board)
+            victory = victory_for(board, 'O')
+            turn = False
+        else:
+            draw_move(board)
+            victory = victory_for(board, 'X')
+            turn = True
+
+    if victory == "me":
+        print("I win!")
+        display_board(board)
+    elif victory == "you":
+        print("You win!")
+        display_board(board)
+    else:
+        print("It's a draw!")
+        display_board(board)
+    
+
+start_game(board)        
