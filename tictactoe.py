@@ -74,13 +74,13 @@ def victory_for(board, sign):
         who = None
     cross1 = cross2 = True
     for check in range(3):
-        if board[check][0] == sign and board[check][1] == sign and board[check][2]:
+        if board[check][0] == sign and board[check][1] == sign and board[check][2] == sign:
             return who
         if board[0][check] == sign and board[1][check] == sign and board[2][check] == sign:
             return who
         if board[check][check] != sign:
             cross1 = False
-        if board[2-check][2-check] != sign: 
+        if board[check][2-check] != sign: 
             cross2 = False
     if cross1 or cross2:
         return who
@@ -89,12 +89,11 @@ def victory_for(board, sign):
 
 
 def draw_move(board):
-    print("My turn")
     free_slots = make_list_of_free_fields(board)
     ran_choice = random.choice(free_slots)
     board[ran_choice[0]][ran_choice[1]] = "X"
     display_board(board)
-    print('Your turn')
+    
 
 
 def start_game(board):
@@ -107,20 +106,25 @@ def start_game(board):
             enter_move(board)
             victory = victory_for(board, 'O')
             turn = False
+            print("My turn")
         else:
             draw_move(board)
             victory = victory_for(board, 'X')
             turn = True
+            print("Your turn")
 
-    if victory == "me":
-        print("I win!")
-        display_board(board)
-    elif victory == "you":
-        print("You win!")
-        display_board(board)
-    else:
-        print("It's a draw!")
-        display_board(board)
+        if victory == "me":
+            print("I win!")
+            display_board(board)
+            return
+        elif victory == "you":
+            print("You win!")
+            display_board(board)
+            return
+        elif victory is None and len(make_list_of_free_fields(board)) == 0:
+            print("It's a draw!")
+            display_board(board)
+            return
     
 
 start_game(board)        
