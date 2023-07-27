@@ -122,7 +122,7 @@ def start_game(board):
             display_board(board)
             return
         elif victory is None and len(make_list_of_free_fields(board)) == 0:
-            print("It's a draw!")
+            print("No... It's a draw!")
             display_board(board)
             return
     
