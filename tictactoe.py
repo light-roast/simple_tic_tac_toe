@@ -51,7 +51,7 @@ def enter_move(board):
                     print("Movement should be a number between 1 and 9.")
             except ValueError:
                 print("Invalid input. Please enter a valid number.")
-        display_board(board)
+        
         
         
 
@@ -113,15 +113,15 @@ def start_game(board):
             turn = True
             print("Your turn")
 
-        if victory == "me":
+    if victory == "me":
             print("Nope! I win!")
             display_board(board)
             return
-        elif victory == "you":
+    elif victory == "you":
             print("Amm... You win!")
             display_board(board)
             return
-        elif victory is None and len(make_list_of_free_fields(board)) == 0:
+    elif victory is None and len(make_list_of_free_fields(board)) == 0:
             print("No... It's a draw!")
             display_board(board)
             return
